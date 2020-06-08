@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct CurrentWeather {
+class CurrentWeather: NetworkWeatherManager {
+    
     let currentCityName: String
     
     let currentTemperature: Double
@@ -32,12 +33,12 @@ struct CurrentWeather {
     let currentWeatherDescription: String
     
 
-    init?(currentWeatherData: CurrentWheatherData) {
-        currentCityName = currentWeatherData.timezone
-        currentTemperature = currentWeatherData.current.temp
-        currentWeatherDescription = currentWeatherData.current.weather[0].description
-        currentWeekday = currentWeatherData.current.dt
-        currentHightTemp = currentWeatherData.daily[0].temp.max
-        currentLowTemp = currentWeatherData.daily[0].temp.min
+    init?(weatherData: WeatherData) {
+        currentCityName = weatherData.timezone
+        currentTemperature = weatherData.current.temp
+        currentWeatherDescription = weatherData.current.weather[0].description
+        currentWeekday = weatherData.current.dt
+        currentHightTemp = weatherData.daily[0].temp.max
+        currentLowTemp = weatherData.daily[0].temp.min
     }
 }

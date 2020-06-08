@@ -8,7 +8,7 @@
 
  import Foundation
  
- struct CurrentWheatherData: Codable {
+ struct WeatherData: Codable {
     
     let timezone: String
     let current: Current

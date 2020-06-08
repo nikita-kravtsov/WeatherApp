@@ -28,13 +28,15 @@ class NetworkWeatherManager {
     func parseJSON(withData data: Data) -> CurrentWeather? {
         
         do {
-            let currentWheatherData = try JSONDecoder().decode(CurrentWheatherData.self, from: data)
-            guard let currentWeather = CurrentWeather(currentWeatherData: currentWheatherData) else { return nil }
+            let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
+            guard let currentWeather = CurrentWeather(weatherData: weatherData) else { return nil }
             return currentWeather
+            
         } catch {
             print(error.localizedDescription)
         }
         return nil
     }
+    
 }
 

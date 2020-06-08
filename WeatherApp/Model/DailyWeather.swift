@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct DailyWeather {
+class DailyWeather: NetworkWeatherManager {
+
     let dailyWeekday: TimeInterval
     let dailyIcon: String
     
@@ -23,12 +24,21 @@ struct DailyWeather {
     }
     
     
-    init?(currentWeatherData: CurrentWheatherData) {
+    init?(weatherData: WeatherData) {
         
-        dailyWeekday = currentWeatherData.current.dt
-        dailyHighTemp = currentWeatherData.daily[0].temp.max
-        dailyLowTemp = currentWeatherData.daily[0].temp.min
-        dailyIcon = currentWeatherData.current.weather[0].icon
-        
+        dailyWeekday = weatherData.current.dt
+        dailyHighTemp = weatherData.daily[0].temp.max
+        dailyLowTemp = weatherData.daily[0].temp.min
+        dailyIcon = weatherData.current.weather[0].icon
     }
 }
+//    init?(currentWeatherData: CurrentWheatherData) {
+//        
+//        dailyWeekday = currentWeatherData.current.dt
+//        dailyHighTemp = currentWeatherData.daily[0].temp.max
+//        dailyLowTemp = currentWeatherData.daily[0].temp.min
+//        dailyIcon = currentWeatherData.current.weather[0].icon
+//        
+//    }
+
+//    var dailyWeatherArray: [DailyWeather] = []
