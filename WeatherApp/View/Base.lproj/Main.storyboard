@@ -237,6 +237,7 @@
                         <outlet property="dailyHighLabel" destination="3Tr-cz-zxt" id="m8F-nc-THZ"/>
                         <outlet property="dailyLowLabel" destination="kDE-v5-aqE" id="qkj-3i-Ahk"/>
                         <outlet property="dayOfWeekLabel" destination="Ps1-7M-oeA" id="53s-xQ-cgy"/>
+                        <outlet property="tableView" destination="G13-2E-ecp" id="tfN-Em-XmK"/>
                         <outlet property="temperatureLabel" destination="O8R-06-tkG" id="Pwt-K0-Uvq"/>
                         <outlet property="weatherLabel" destination="sud-3i-nY7" id="Zbd-MZ-Nn5"/>
                     </connections>

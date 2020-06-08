@@ -8,14 +8,6 @@
 
 import UIKit
 
-let dateFormatter: DateFormatter = {
-    
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "EEEE"
-    return dateFormatter
-}()
-
-
 class LocationDetailViewController: UIViewController {
     
     @IBOutlet weak var cityLabel: UILabel!
@@ -25,9 +17,18 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet weak var dailyHighLabel: UILabel!
     @IBOutlet weak var dailyLowLabel: UILabel!
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    
+    
+
     var networkWeatherManager = NetworkWeatherManager()
     
     override func viewDidLoad() {
+        
+//        tableView.delegate = self
+//        tableView.dataSource = self
+        
         super.viewDidLoad()
         networkWeatherManager.onCompletion = { [weak self] currentWeather in
             guard let self = self else { return }
@@ -39,13 +40,33 @@ class LocationDetailViewController: UIViewController {
     func updateInterface(with currentWeather: CurrentWeather) {
         DispatchQueue.main.async {
             
+            let unixDate: TimeInterval = currentWeather.currentWeekday
+            let usableDate = Date(timeIntervalSince1970: unixDate)
             
-            self.cityLabel.text = currentWeather.cityName
-            self.weatherLabel.text = currentWeather.weatherDescription
-            self.temperatureLabel.text = "\(currentWeather.temperatureString)°"
-            self.dayOfWeekLabel.text = currentWeather.dayOfWeekString
-            self.dailyHighLabel.text = currentWeather.dayTempString
-            self.dailyLowLabel.text = currentWeather.nightTempString
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEEE"
+            dateFormatter.locale = Locale(identifier: "ru_RU")
+            
+            let currentDay = dateFormatter.string(from: usableDate)
+            
+            
+            self.cityLabel.text = currentWeather.currentCityName
+            self.weatherLabel.text = currentWeather.currentWeatherDescription
+            self.temperatureLabel.text = "\(currentWeather.currentTemperatureString)°"
+            self.dayOfWeekLabel.text = currentDay
+            self.dailyHighLabel.text = currentWeather.currentHighTempString
+            self.dailyLowLabel.text = currentWeather.currentLowTempString
         }
     }
 }
+
+//extension LocationDetailViewController: UITableViewDelegate, UITableViewDataSource {
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        <#code#>
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        <#code#>
+//    }
+//}

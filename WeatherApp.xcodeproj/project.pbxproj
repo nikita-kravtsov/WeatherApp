@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		114604A8248CCEDA002CC986 /* NetworkWeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114604A7248CCEDA002CC986 /* NetworkWeatherManager.swift */; };
 		114604AA248CD10F002CC986 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114604A9248CD10F002CC986 /* Constans.swift */; };
-		114604AC248CDA68002CC986 /* CurrentWheatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114604AB248CDA68002CC986 /* CurrentWheatherData.swift */; };
+		114604AC248CDA68002CC986 /* WheatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114604AB248CDA68002CC986 /* WheatherData.swift */; };
 		114604B3248D4DE4002CC986 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114604B2248D4DE4002CC986 /* CurrentWeather.swift */; };
 		114B9F6E248BE8F600B1B589 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114B9F6D248BE8F600B1B589 /* LocationDetailViewController.swift */; };
+		115E77AA248E52BE00DCC4D7 /* DailyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115E77A9248E52BE00DCC4D7 /* DailyWeather.swift */; };
 		11B9303A248910CE00D0D121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B93039248910CE00D0D121 /* AppDelegate.swift */; };
 		11B9303C248910CE00D0D121 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B9303B248910CE00D0D121 /* SceneDelegate.swift */; };
 		11B93041248910CE00D0D121 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11B9303F248910CE00D0D121 /* Main.storyboard */; };
@@ -23,9 +24,10 @@
 /* Begin PBXFileReference section */
 		114604A7248CCEDA002CC986 /* NetworkWeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWeatherManager.swift; sourceTree = "<group>"; };
 		114604A9248CD10F002CC986 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
-		114604AB248CDA68002CC986 /* CurrentWheatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWheatherData.swift; sourceTree = "<group>"; };
+		114604AB248CDA68002CC986 /* WheatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheatherData.swift; sourceTree = "<group>"; };
 		114604B2248D4DE4002CC986 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		114B9F6D248BE8F600B1B589 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
+		115E77A9248E52BE00DCC4D7 /* DailyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeather.swift; sourceTree = "<group>"; };
 		11B93036248910CE00D0D121 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11B93039248910CE00D0D121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11B9303B248910CE00D0D121 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,8 +83,9 @@
 			isa = PBXGroup;
 			children = (
 				114604A7248CCEDA002CC986 /* NetworkWeatherManager.swift */,
-				114604AB248CDA68002CC986 /* CurrentWheatherData.swift */,
+				114604AB248CDA68002CC986 /* WheatherData.swift */,
 				114604B2248D4DE4002CC986 /* CurrentWeather.swift */,
+				115E77A9248E52BE00DCC4D7 /* DailyWeather.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,13 +189,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				114B9F6E248BE8F600B1B589 /* LocationDetailViewController.swift in Sources */,
-				114604AC248CDA68002CC986 /* CurrentWheatherData.swift in Sources */,
+				114604AC248CDA68002CC986 /* WheatherData.swift in Sources */,
 				114604B3248D4DE4002CC986 /* CurrentWeather.swift in Sources */,
 				11B93044248910CE00D0D121 /* WeatherApp.xcdatamodeld in Sources */,
 				11B9303A248910CE00D0D121 /* AppDelegate.swift in Sources */,
 				114604A8248CCEDA002CC986 /* NetworkWeatherManager.swift in Sources */,
 				11B9303C248910CE00D0D121 /* SceneDelegate.swift in Sources */,
 				114604AA248CD10F002CC986 /* Constans.swift in Sources */,
+				115E77AA248E52BE00DCC4D7 /* DailyWeather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

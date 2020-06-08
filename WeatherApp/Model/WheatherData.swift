@@ -16,23 +16,26 @@
  }
  
  struct Current: Codable {
+    let dt: TimeInterval
     let temp: Double
     let weather: [Weather]
     
  }
- 
- struct Weather: Codable {
-    let description: String
- }
- 
+  
  struct Daily: Codable {
     let dt: TimeInterval
     let temp: Temp
+    let weather: [Weather]
  }
  
  struct Temp: Codable {
-    let day: Double
-    let night: Double
+    let min: Double
+    let max: Double
+ }
+ 
+ struct Weather: Codable {
+    let description: String
+    let icon: String
  }
  
  

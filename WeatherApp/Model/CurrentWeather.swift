@@ -9,37 +9,35 @@
 import Foundation
 
 struct CurrentWeather {
-    let cityName: String
-   
-    let temperature: Double
-    var temperatureString: String {
-        return String(format: "%.0f", temperature)
+    let currentCityName: String
+    
+    let currentTemperature: Double
+    var currentTemperatureString: String {
+        return String(format: "%.0f", currentTemperature)
     }
     
-    let dayOfWeek: TimeInterval
-    var dayOfWeekString: String {
-        return String(dayOfWeek)
+    let currentWeekday: TimeInterval
+    
+    
+    let currentHightTemp: Double
+    var currentHighTempString: String {
+        return String(format: "%.0f", currentHightTemp)
     }
     
-    let dayTemp: Double
-    var dayTempString: String {
-        return String(format: "%.0f", dayTemp)
+    let currentLowTemp: Double
+    var currentLowTempString: String {
+        return String(format: "%.0f", currentLowTemp)
     }
     
-    let nightTemp: Double
-    var nightTempString: String {
-        return String(format: "%.0f", nightTemp)
-    }
-    
-    let weatherDescription: String
+    let currentWeatherDescription: String
     
 
     init?(currentWeatherData: CurrentWheatherData) {
-        cityName = currentWeatherData.timezone
-        temperature = currentWeatherData.current.temp
-        weatherDescription = currentWeatherData.current.weather[0].description
-        dayOfWeek = currentWeatherData.daily[0].dt
-        dayTemp = currentWeatherData.daily[0].temp.day
-        nightTemp = currentWeatherData.daily[0].temp.night
+        currentCityName = currentWeatherData.timezone
+        currentTemperature = currentWeatherData.current.temp
+        currentWeatherDescription = currentWeatherData.current.weather[0].description
+        currentWeekday = currentWeatherData.current.dt
+        currentHightTemp = currentWeatherData.daily[0].temp.max
+        currentLowTemp = currentWeatherData.daily[0].temp.min
     }
 }
