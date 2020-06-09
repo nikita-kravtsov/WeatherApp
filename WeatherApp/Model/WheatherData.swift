@@ -13,7 +13,9 @@
     let timezone: String
     let current: Current
     let daily: [Daily]
+    let hourly: [Hourly]
  }
+ 
  
  struct Current: Codable {
     let dt: TimeInterval
@@ -38,6 +40,14 @@
     let icon: String
     let id: Int
  }
+ 
+ struct Hourly: Codable {
+    let dt: TimeInterval
+    let temp: Double
+    let weather: [Weather]
+ }
+ 
+ 
  
  
  

@@ -159,13 +159,13 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Um-4O-qU6">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Um-4O-qU6">
                                 <rect key="frame" x="0.0" y="458" width="414" height="100"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.042227864269999998" green="0.32899087669999999" blue="0.73337149619999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="7Zk-Iu-ind"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="IwZ-mH-LjD">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="IwZ-mH-LjD">
                                     <size key="itemSize" width="70" height="100"/>
                                     <size key="estimatedItemSize" width="100" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -173,11 +173,11 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="yM5-AE-ooC">
-                                        <rect key="frame" x="0.0" y="0.0" width="69.666666666666657" height="99.666666666666671"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HourlyCollectionViewCell" id="yM5-AE-ooC" customClass="HourlyCollectionViewCell" customModule="WeatherApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="69.666666666666671" height="99.666666666666671"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="JkN-sj-ct9">
-                                            <rect key="frame" x="0.0" y="0.0" width="69.666666666666657" height="99.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="69.666666666666671" height="99.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="alh-i7-fyG">
@@ -216,6 +216,11 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" red="0.03884056583" green="0.33437800410000001" blue="0.70591837170000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <outlet property="hourlyImageView" destination="OoD-CR-FO0" id="tFV-Zs-7iC"/>
+                                            <outlet property="hourlyLabel" destination="WI3-kc-Hva" id="1I6-HI-vg3"/>
+                                            <outlet property="hourlyTemperatureLabel" destination="DN0-YZ-gXx" id="O3V-eM-Oao"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -237,6 +242,7 @@
                     </view>
                     <connections>
                         <outlet property="cityLabel" destination="OfL-0a-iEP" id="ywZ-NS-59m"/>
+                        <outlet property="collectionView" destination="5Um-4O-qU6" id="RQL-8g-Atx"/>
                         <outlet property="dailyHighLabel" destination="3Tr-cz-zxt" id="m8F-nc-THZ"/>
                         <outlet property="dailyLowLabel" destination="kDE-v5-aqE" id="qkj-3i-Ahk"/>
                         <outlet property="dayOfWeekLabel" destination="Ps1-7M-oeA" id="53s-xQ-cgy"/>

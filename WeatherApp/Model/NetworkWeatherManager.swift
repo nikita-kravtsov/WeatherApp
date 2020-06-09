@@ -12,6 +12,7 @@ class NetworkWeatherManager {
     
     var onCompletionWithCurrentWeather: ((CurrentWeather) -> Void)?
     var onCompletionWithDailyWeather: (([DailyWeather]) -> Void)?
+    var onCompletionWithHourlyWeather: (([HourlyWeather]) -> Void)?
     
     func fetchCurrentWeather() {
         
@@ -23,8 +24,10 @@ class NetworkWeatherManager {
             
             guard let currentWeather = self.parseJSON(withCurrentWeatherData: data) else { return }
             guard let dailyWeather = self.parseJSON(withDailyWeatherData: data) else { return }
+            guard let hourlyWeather = self.parseJSON(withHourlyWeatherData: data) else { return }
             self.onCompletionWithCurrentWeather?(currentWeather)
             self.onCompletionWithDailyWeather?(dailyWeather)
+            self.onCompletionWithHourlyWeather?(hourlyWeather)
         }
         task.resume()
     }
@@ -44,23 +47,40 @@ class NetworkWeatherManager {
     
     func parseJSON(withDailyWeatherData data: Data) -> [DailyWeather]? {
         
-        var dailyDay: [DailyWeather] = []
+        var dailyWeatherData: [DailyWeather] = []
         
         do {
             let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
             
             for day in weatherData.daily {
                 guard let dailyWeather = DailyWeather(dailyDay: day) else { return nil }
-                dailyDay.append(dailyWeather)
+                dailyWeatherData.append(dailyWeather)
             }
-            return dailyDay
+            return dailyWeatherData
             
         } catch {
             print(error.localizedDescription)
         }
         return nil
-        
     }
     
+    func parseJSON(withHourlyWeatherData data: Data) -> [HourlyWeather]? {
+
+         var hourlyWeatherData: [HourlyWeather] = []
+
+         do {
+             let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
+
+            for hour in weatherData.hourly {
+                 guard let hourlyWeather = HourlyWeather(hourly: hour) else { return nil }
+                 hourlyWeatherData.append(hourlyWeather)
+             }
+             return hourlyWeatherData
+
+         } catch {
+             print(error.localizedDescription)
+         }
+         return nil
+     }
 }
 
