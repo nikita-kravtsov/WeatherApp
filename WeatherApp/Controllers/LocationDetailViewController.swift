@@ -19,18 +19,16 @@ class LocationDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    
-    
+    var dailyTableData = [DailyWeather]()
     
     var networkWeatherManager = NetworkWeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//                        tableView.delegate = self
-//                        tableView.dataSource = self
-        
-        
+                        tableView.delegate = self
+                        tableView.dataSource = self
+  
         networkWeatherManager.onCompletionWithCurrentWeather = { [weak self] currentWeather in
             guard let self = self else { return }
             self.updateInterface(with: currentWeather)
@@ -38,8 +36,10 @@ class LocationDetailViewController: UIViewController {
         
         networkWeatherManager.onCompletionWithDailyWeather = { [weak self] dailyWeather in
             guard let self = self else { return }
-            self.updateInterface(with: dailyWeather)
-            
+            self.dailyTableData = dailyWeather
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
         networkWeatherManager.fetchCurrentWeather() 
     }
@@ -47,35 +47,51 @@ class LocationDetailViewController: UIViewController {
     func updateInterface(with currentWeather: CurrentWeather) {
         DispatchQueue.main.async {
             
-            let unixDate: TimeInterval = currentWeather.currentWeekday
-            let usableDate = Date(timeIntervalSince1970: unixDate)
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE"
-            dateFormatter.locale = Locale(identifier: "ru_RU")
-            
-            let currentDay = dateFormatter.string(from: usableDate)
-            
-            
             self.cityLabel.text = currentWeather.currentCityName
             self.weatherLabel.text = currentWeather.currentWeatherDescription
             self.temperatureLabel.text = "\(currentWeather.currentTemperatureString)°"
-            self.dayOfWeekLabel.text = currentDay
+            self.dayOfWeekLabel.text = currentWeather.currentWeekdayString
             self.dailyHighLabel.text = currentWeather.currentHighTempString
             self.dailyLowLabel.text = currentWeather.currentLowTempString
         }
     }
-    
-    func updateInterface(with dailyWeather: DailyWeather) {}
 }
 
-//extension LocationDetailViewController: UITableViewDelegate, UITableViewDataSource {
+extension LocationDetailViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dailyTableData.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DailyTableViewCell", for: indexPath) as! DailyTableViewCell
+        cell.updateInterface(with: dailyTableData[indexPath.row])
+        return cell
+    }
+}
+
+
+
+//func updateInterface(with dailyWeather: DailyWeather) {}
+
+//func updateInterface(with currentWeather: CurrentWeather) {
+//       DispatchQueue.main.async {
 //
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return
-//    }
+//           let unixDate: TimeInterval = currentWeather.currentWeekday
+//           let usableDate = Date(timeIntervalSince1970: unixDate)
 //
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//}
+//           let dateFormatter = DateFormatter()
+//           dateFormatter.dateFormat = "EEEE"
+//           dateFormatter.locale = Locale(identifier: "ru_RU")
+//
+//           let currentDay = dateFormatter.string(from: usableDate)
+//
+//
+//           self.cityLabel.text = currentWeather.currentCityName
+//           self.weatherLabel.text = currentWeather.currentWeatherDescription
+//           self.temperatureLabel.text = "\(currentWeather.currentTemperatureString)°"
+//           self.dayOfWeekLabel.text = currentDay
+//           self.dailyHighLabel.text = currentWeather.currentHighTempString
+//           self.dailyLowLabel.text = currentWeather.currentLowTempString
+//       }
+//   }

@@ -18,6 +18,16 @@ struct CurrentWeather {
     }
     
     let currentWeekday: TimeInterval
+    var currentWeekdayString: String {
+        let unixDate: TimeInterval = currentWeekday
+        let usableDate = Date(timeIntervalSince1970: unixDate)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        
+        return dateFormatter.string(from: usableDate)
+    }
     
     
     let currentHightTemp: Double

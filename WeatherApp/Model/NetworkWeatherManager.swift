@@ -11,7 +11,7 @@ import Foundation
 class NetworkWeatherManager {
     
     var onCompletionWithCurrentWeather: ((CurrentWeather) -> Void)?
-    var onCompletionWithDailyWeather: ((DailyWeather) -> Void)?
+    var onCompletionWithDailyWeather: (([DailyWeather]) -> Void)?
     
     func fetchCurrentWeather() {
         
@@ -39,21 +39,27 @@ class NetworkWeatherManager {
         } catch {
             print(error.localizedDescription)
         }
-            return nil
+        return nil
     }
     
-    func parseJSON(withDailyWeatherData data: Data) -> DailyWeather? {
-
+    func parseJSON(withDailyWeatherData data: Data) -> [DailyWeather]? {
+        
+        var dailyDay: [DailyWeather] = []
+        
         do {
             let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
-            guard let dailyWeather = DailyWeather(weatherData: weatherData) else { return nil }
-            return dailyWeather
-
+            
+            for day in weatherData.daily {
+                guard let dailyWeather = DailyWeather(dailyDay: day) else { return nil }
+                dailyDay.append(dailyWeather)
+            }
+            return dailyDay
+            
         } catch {
             print(error.localizedDescription)
         }
-            return nil
-
+        return nil
+        
     }
     
 }

@@ -8,26 +8,17 @@
 
 import UIKit
 
-class DailyTableViewCell: LocationDetailViewController {
+class DailyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var dailyWeekdayLabel: UILabel!
     @IBOutlet weak var dailyImageView: UIImageView!
     @IBOutlet weak var dailyWeekHighLabel: UILabel!
     @IBOutlet weak var dailyWeekLowLabel: UILabel!
 
-    override func updateInterface(with dailyWeather: DailyWeather) {
+    func updateInterface(with dailyWeather: DailyWeather) {
         DispatchQueue.main.async {
-        
-            let unixDate: TimeInterval = dailyWeather.dailyWeekday
-            let usableDate = Date(timeIntervalSince1970: unixDate)
             
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE"
-            dateFormatter.locale = Locale(identifier: "ru_RU")
-            
-            let dailyWeekday = dateFormatter.string(from: usableDate)
-            
-            self.dailyWeekdayLabel.text = dailyWeekday
+            self.dailyWeekdayLabel.text = dailyWeather.dailyWeekdayString
             self.dailyImageView.image = UIImage(systemName: dailyWeather.dailyIconString)
             self.dailyWeekHighLabel.text = dailyWeather.dailyHighTempString
             self.dailyWeekLowLabel.text = dailyWeather.dailyLowTempString

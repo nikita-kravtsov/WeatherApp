@@ -10,10 +10,18 @@ import Foundation
 
 struct DailyWeather {
 
-    var networkWeatherManager = NetworkWeatherManager()
-    
-    
     let dailyWeekday: TimeInterval
+    var dailyWeekdayString: String {
+        
+        let unixDate: TimeInterval = dailyWeekday
+        let usableDate = Date(timeIntervalSince1970: unixDate)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        
+        return dateFormatter.string(from: usableDate)
+    }
     
     let dailyIcon: Int
     var dailyIconString: String {
@@ -39,15 +47,15 @@ struct DailyWeather {
         return String(format: "%.0f", dailyLowTemp)
     }
     
-    init?(weatherData: WeatherData) {
+    init?(dailyDay: Daily) {
     
-        self.dailyWeekday = weatherData.current.dt
-        self.dailyHighTemp = weatherData.daily[0].temp.max
-        self.dailyLowTemp = weatherData.daily[0].temp.min
-        self.dailyIcon = weatherData.current.weather.first!.id
+        self.dailyWeekday = dailyDay.dt
+        self.dailyHighTemp = dailyDay.temp.max
+        self.dailyLowTemp = dailyDay.temp.min
+        self.dailyIcon = dailyDay.weather.first!.id
     }
 }
 
-var dailyWeatherArray: [DailyWeather] = [] 
+ 
 
 //var dailyWeatherArray: [DailyWeather] = []
