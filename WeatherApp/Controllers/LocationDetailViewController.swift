@@ -36,7 +36,7 @@ class LocationDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -64,6 +64,7 @@ class LocationDetailViewController: UIViewController {
                 self.collectionView.reloadData()
             }
         }
+        
         networkWeatherManager.fetchCurrentWeather(latitude: latitude, longitude: latitude)
         
         if CLLocationManager.locationServicesEnabled() {
@@ -84,6 +85,7 @@ class LocationDetailViewController: UIViewController {
     }
 }
 
+//MARK: - UITableViewDelegate, UITableViewDataSource
 extension LocationDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -97,6 +99,7 @@ extension LocationDetailViewController: UITableViewDelegate, UITableViewDataSour
     }
 }
 
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension LocationDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return horlyCollectionData.count
@@ -109,6 +112,8 @@ extension LocationDetailViewController: UICollectionViewDelegate, UICollectionVi
     }
 }
 
+
+// MARK: - CLLocationManagerDelegate
 extension LocationDetailViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
