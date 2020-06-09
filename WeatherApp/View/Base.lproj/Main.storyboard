@@ -98,7 +98,7 @@
                                 <rect key="frame" x="0.0" y="558" width="414" height="338"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="R5X-ua-bhD">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="R5X-ua-bhD" customClass="DailyTableViewCell" customModule="WeatherApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R5X-ua-bhD" id="hrA-4g-o11">
@@ -153,6 +153,12 @@
                                                 <constraint firstItem="R4a-Wg-bgi" firstAttribute="centerY" secondItem="rk8-yD-Tdr" secondAttribute="centerY" id="teK-qd-8x4"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dailyImageView" destination="R4a-Wg-bgi" id="0BJ-YK-aIc"/>
+                                            <outlet property="dailyWeekHighLabel" destination="R6D-xW-lN0" id="JtF-cZ-3Cy"/>
+                                            <outlet property="dailyWeekLowLabel" destination="kBI-CB-HbD" id="CNn-s6-bAV"/>
+                                            <outlet property="dailyWeekdayLabel" destination="rk8-yD-Tdr" id="SnV-eh-NYk"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

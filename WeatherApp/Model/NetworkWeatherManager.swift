@@ -10,7 +10,8 @@ import Foundation
 
 class NetworkWeatherManager {
     
-    var onCompletion: ((CurrentWeather) -> Void)?
+    var onCompletionWithCurrentWeather: ((CurrentWeather) -> Void)?
+    var onCompletionWithDailyWeather: ((DailyWeather) -> Void)?
     
     func fetchCurrentWeather() {
         
@@ -19,13 +20,16 @@ class NetworkWeatherManager {
         let session = URLSession.shared
         let task = session.dataTask(with: url) { data, response, error in
             guard let data = data else { return }
-            guard let currentWeather = self.parseJSON(withData: data) else { return }
-            self.onCompletion?(currentWeather)
+            
+            guard let currentWeather = self.parseJSON(withCurrentWeatherData: data) else { return }
+            guard let dailyWeather = self.parseJSON(withDailyWeatherData: data) else { return }
+            self.onCompletionWithCurrentWeather?(currentWeather)
+            self.onCompletionWithDailyWeather?(dailyWeather)
         }
         task.resume()
     }
     
-    func parseJSON(withData data: Data) -> CurrentWeather? {
+    func parseJSON(withCurrentWeatherData data: Data) -> CurrentWeather? {
         
         do {
             let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
@@ -35,7 +39,21 @@ class NetworkWeatherManager {
         } catch {
             print(error.localizedDescription)
         }
-        return nil
+            return nil
+    }
+    
+    func parseJSON(withDailyWeatherData data: Data) -> DailyWeather? {
+
+        do {
+            let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
+            guard let dailyWeather = DailyWeather(weatherData: weatherData) else { return nil }
+            return dailyWeather
+
+        } catch {
+            print(error.localizedDescription)
+        }
+            return nil
+
     }
     
 }

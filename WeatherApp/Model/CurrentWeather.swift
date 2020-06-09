@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CurrentWeather: NetworkWeatherManager {
+struct CurrentWeather {
     
     let currentCityName: String
     
@@ -32,7 +32,7 @@ class CurrentWeather: NetworkWeatherManager {
     
     let currentWeatherDescription: String
     
-
+    
     init?(weatherData: WeatherData) {
         currentCityName = weatherData.timezone
         currentTemperature = weatherData.current.temp
@@ -41,4 +41,5 @@ class CurrentWeather: NetworkWeatherManager {
         currentHightTemp = weatherData.daily[0].temp.max
         currentLowTemp = weatherData.daily[0].temp.min
     }
+    
 }

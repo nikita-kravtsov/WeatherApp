@@ -21,18 +21,25 @@ class LocationDetailViewController: UIViewController {
     
     
     
-
+    
     var networkWeatherManager = NetworkWeatherManager()
     
     override func viewDidLoad() {
-        
-//        tableView.delegate = self
-//        tableView.dataSource = self
-        
         super.viewDidLoad()
-        networkWeatherManager.onCompletion = { [weak self] currentWeather in
+        
+//                        tableView.delegate = self
+//                        tableView.dataSource = self
+        
+        
+        networkWeatherManager.onCompletionWithCurrentWeather = { [weak self] currentWeather in
             guard let self = self else { return }
             self.updateInterface(with: currentWeather)
+        }
+        
+        networkWeatherManager.onCompletionWithDailyWeather = { [weak self] dailyWeather in
+            guard let self = self else { return }
+            self.updateInterface(with: dailyWeather)
+            
         }
         networkWeatherManager.fetchCurrentWeather() 
     }
@@ -58,6 +65,8 @@ class LocationDetailViewController: UIViewController {
             self.dailyLowLabel.text = currentWeather.currentLowTempString
         }
     }
+    
+    func updateInterface(with dailyWeather: DailyWeather) {}
 }
 
 //extension LocationDetailViewController: UITableViewDelegate, UITableViewDataSource {
