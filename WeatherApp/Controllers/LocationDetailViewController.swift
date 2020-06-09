@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class LocationDetailViewController: UIViewController {
     
@@ -24,6 +25,14 @@ class LocationDetailViewController: UIViewController {
     var horlyCollectionData = [HourlyWeather]()
     
     var networkWeatherManager = NetworkWeatherManager()
+    
+    lazy var locationManager: CLLocationManager = {
+        let lm = CLLocationManager()
+        lm.delegate = self
+        lm.desiredAccuracy = kCLLocationAccuracyKilometer
+        lm.requestWhenInUseAuthorization()
+        return lm
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +64,11 @@ class LocationDetailViewController: UIViewController {
                 self.collectionView.reloadData()
             }
         }
+        networkWeatherManager.fetchCurrentWeather(latitude: latitude, longitude: latitude)
         
-        networkWeatherManager.fetchCurrentWeather() 
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestLocation()
+        }
     }
     
     func updateInterface(with currentWeather: CurrentWeather) {
@@ -95,32 +107,18 @@ extension LocationDetailViewController: UICollectionViewDelegate, UICollectionVi
         hourlyCell.updateInterface(with: horlyCollectionData[indexPath.row])
         return hourlyCell
     }
-    
-    
 }
 
-
-
-//func updateInterface(with dailyWeather: DailyWeather) {}
-
-//func updateInterface(with currentWeather: CurrentWeather) {
-//       DispatchQueue.main.async {
-//
-//           let unixDate: TimeInterval = currentWeather.currentWeekday
-//           let usableDate = Date(timeIntervalSince1970: unixDate)
-//
-//           let dateFormatter = DateFormatter()
-//           dateFormatter.dateFormat = "EEEE"
-//           dateFormatter.locale = Locale(identifier: "ru_RU")
-//
-//           let currentDay = dateFormatter.string(from: usableDate)
-//
-//
-//           self.cityLabel.text = currentWeather.currentCityName
-//           self.weatherLabel.text = currentWeather.currentWeatherDescription
-//           self.temperatureLabel.text = "\(currentWeather.currentTemperatureString)°"
-//           self.dayOfWeekLabel.text = currentDay
-//           self.dailyHighLabel.text = currentWeather.currentHighTempString
-//           self.dailyLowLabel.text = currentWeather.currentLowTempString
-//       }
-//   }
+extension LocationDetailViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        
+        networkWeatherManager.fetchCurrentWeather(latitude: latitude, longitude: longitude)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription )
+    }
+}

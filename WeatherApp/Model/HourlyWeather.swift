@@ -17,7 +17,7 @@ struct HourlyWeather {
         let usableDate = Date(timeIntervalSince1970: unixDate)
         
         let hourlyFormatter = DateFormatter()
-        hourlyFormatter.dateFormat = "ha"
+        hourlyFormatter.dateFormat = "H"
         
         return hourlyFormatter.string(from: usableDate)
     }

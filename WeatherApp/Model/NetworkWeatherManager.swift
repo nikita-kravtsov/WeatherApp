@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class NetworkWeatherManager {
     
@@ -14,9 +15,9 @@ class NetworkWeatherManager {
     var onCompletionWithDailyWeather: (([DailyWeather]) -> Void)?
     var onCompletionWithHourlyWeather: (([HourlyWeather]) -> Void)?
     
-    func fetchCurrentWeather() {
+    func fetchCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         
-        let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=53.907278&lon=27.554915&appid=\(apiKey)&units=metric&lang=ru"
+        let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=\(longitude)&appid=\(apiKey)&units=metric&lang=ru"
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
         let task = session.dataTask(with: url) { data, response, error in
