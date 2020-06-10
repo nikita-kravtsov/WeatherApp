@@ -26,6 +26,9 @@ class LocationDetailViewController: UIViewController {
     
     var networkWeatherManager = NetworkWeatherManager()
     
+    var latitude: CLLocationDegrees = 53.899674
+    var longitude: CLLocationDegrees = 27.553996
+    
     lazy var locationManager: CLLocationManager = {
         let lm = CLLocationManager()
         lm.delegate = self
@@ -36,7 +39,7 @@ class LocationDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -65,7 +68,7 @@ class LocationDetailViewController: UIViewController {
             }
         }
         
-        networkWeatherManager.fetchCurrentWeather(latitude: latitude, longitude: latitude)
+        networkWeatherManager.fetchCurrentWeather(latitude: latitude, longitude: longitude)
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
@@ -119,6 +122,15 @@ extension LocationDetailViewController: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
+        
+        let coordinate = location.coordinate
+        
+        print("latitude: \(coordinate.latitude)")
+        print("longitude: \(coordinate.longitude)")
+        
+        self.latitude = coordinate.latitude
+        self.longitude = coordinate.longitude
+        
         
         networkWeatherManager.fetchCurrentWeather(latitude: latitude, longitude: longitude)
     }
